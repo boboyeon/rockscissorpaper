@@ -24,18 +24,54 @@ const choice = {
   },
 };
 function App() {
-  const [userSelect,setUserSelect] = useState(null)
+  const [userSelect, setUserSelect] = useState(null);
+  const [computerSelect, setComputerSelect] = useState(null);
+  const [result, setresult] = useState("");
 
   const play = (userChoice) => {
     console.log("선택됨!", userChoice);
-    setUserSelect(choice[userChoice])
+    setUserSelect(choice[userChoice]); // 유저가 선택한 값
+    let computerChoice = randomChoice();
+    setComputerSelect(computerChoice); // 컴퓨터가 선택한 랜덤값
+    setresult(judgement(choice[userChoice], computerChoice));
+  };
+
+  const judgement = (user, computer) => {
+    console.log("user", user, "computer", computer);
+
+    // user === computer tie
+    // user == rock, computer == scissor user win
+    // user == rock, computer == paper user lose
+    // user == scissors, computer == paper user win
+    // user == scissor, computer == rock user lose
+    // user ==  paper, computer == rock user win
+    // user == paper, computer == scissors user lose
+
+    if (user.name == computer.name) {
+      return "tie";
+    } else if (user.name == "Rock")
+      return computer.name == "Scissors" ? "win" : "lose";
+    else if (user.name == "Scissors")
+      return computer.name == "Paper" ? "win" : "lose";
+    else if (user.name == "Paper")
+      return computer.name == "Rock" ? "win" : "lose";
+  };
+
+  const randomChoice = () => {
+    let itemArray = Object.keys(choice); // 객체의 키 값만 뽑아서 array로 만들어주는 함수
+    console.log("item array", itemArray);
+    let randomItem = Math.floor(Math.random() * itemArray.length);
+    console.log("random value", randomItem);
+    let final = itemArray[randomItem];
+    console.log("final", final);
+    return choice[final];
   };
 
   return (
     <div>
       <div className="main">
-        <Box title="You" item={userSelect}/>
-        <Box title="Computer" item={userSelect}/>
+        <Box title="You" item={userSelect} result={result} />
+        <Box title="Computer" item={computerSelect} result={result} />
       </div>
       <div className="main">
         <button onClick={() => play("scissors")}>가위</button>
