@@ -69,14 +69,15 @@ function App() {
 
   return (
     <div>
+      <h1> ✌ ✊ 🤚 Game!</h1>
       <div className="main">
         <Box title="You" item={userSelect} result={result} />
         <Box title="Computer" item={computerSelect} result={result} />
       </div>
       <div className="main">
-        <button onClick={() => play("scissors")}>가위</button>
-        <button onClick={() => play("rock")}>바위</button>
-        <button onClick={() => play("paper")}>보</button>
+        <button onClick={() => play("scissors")}>✌</button>
+        <button onClick={() => play("rock")}>✊</button>
+        <button onClick={() => play("paper")}>🤚</button>
       </div>
     </div>
   );
